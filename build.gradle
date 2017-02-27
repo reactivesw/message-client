@@ -11,6 +11,7 @@ buildscript {
     }
 }
 apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
 apply plugin: "io.spring.dependency-management"
 
 compileJava {
@@ -25,24 +26,15 @@ repositories {
     }
 }
 
-dependencyManagement {
-    imports {
-        mavenBom 'org.springframework.cloud:spring-cloud-config:1.3.0.M1'
-    }
-}
+bootRepackage.enabled = false
+
 
 dependencies {
     // spring
-    compile("org.springframework.boot:spring-boot-starter-web")
-    //for jsong web token
-    compile('io.jsonwebtoken:jjwt:0.7.0')
-
-    //spring data jpa
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    //h2
-    compile('com.h2database:h2:1.4.193')
-    //postgreSql driver
-    compile('org.postgresql:postgresql:9.4.1212')
+    compile("org.springframework.boot:spring-boot-starter")
+    compile("org.springframework:spring-messaging")
+    //for zoned datetime
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.5')
 
     //common tool
     compile('org.apache.commons:commons-collections4:4.1')
@@ -50,12 +42,13 @@ dependencies {
     compile("commons-validator:commons-validator:1.4.0")
 
     compile('com.google.api-client:google-api-client:1.22.0')
+    compile('com.google.cloud:google-cloud-pubsub:0.9.3-alpha')
 
     //lombok
     compile('org.projectlombok:lombok:1.16.12')
 
     //spring boot test
-    testCompile('org.springframework.boot:spring-boot-starter-test:1.4.0.RELEASE')
+//    testCompile('org.springframework.boot:spring-boot-starter-test:1.4.0.RELEASE')
 
     //groovy for spock
     testCompile('org.codehaus.groovy:groovy-all:2.4.1')

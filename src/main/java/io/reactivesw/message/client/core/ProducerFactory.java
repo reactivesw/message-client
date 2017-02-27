@@ -4,12 +4,14 @@ import io.reactivesw.message.client.producer.Producer;
 
 /**
  * The strategy to produce a {@link Producer} instance(s).
- *
- * @param <K> the key type.
- * @param <V> the value type.
  */
-public interface ProducerFactory<K, V> {
+public class ProducerFactory {
 
-  Producer<K, V> createProducer();
+  public static Producer createProducer() {
+    return null;
+  }
 
+  public static Producer createProducer(String topicName) {
+    return null;
+  }
 }
