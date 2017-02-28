@@ -5,13 +5,9 @@ import io.reactivesw.message.client.producer.Producer;
 /**
  * The strategy to produce a {@link Producer} instance(s).
  */
-public class ProducerFactory {
+public interface ProducerFactory {
 
-  public static Producer createProducer() {
-    return null;
-  }
+  Producer createProducer() throws Exception;
 
-  public static Producer createProducer(String topicName) {
-    return null;
-  }
+  Producer createProducer(String topicName) throws Exception;
 }

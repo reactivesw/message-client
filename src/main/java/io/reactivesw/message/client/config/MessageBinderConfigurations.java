@@ -1,21 +1,34 @@
 package io.reactivesw.message.client.config;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * Created by umasuo on 17/2/27.
+ * message binder configurations.
  */
-@ConfigurationProperties(prefix = "io.reactivesw.message")
+@Configuration
+@Data
 public class MessageBinderConfigurations {
 
-  private String broker = "localhost";
+  @Value("${io.reactivesw.message.broker.host:localhost}")
+  private String broker;
 
-  private String defaultBrokerPort = "0000";
+  @Value("${io.reactivesw.message.broker.port: 9999}")
+  private String port;
 
-  private String user = "reactivesw";
+  @Value("${io.reactivesw.message.broker.user:reactivesw}")
+  private String user;
 
-  private String password = "reactivesw-password";
+  @Value("${io.reactivesw.message.broker.password: password}")
+  private String password;
 
-  private String brokerType = "google";
+  @Value("${io.reactivesw.message.broker.type:google}")
+  private String brokerType;
 
+  @Value("${io.reactivesw.message.topic}")
+  private String topic;
+
+  @Value("${io.reactivesw.message.google.project.id:googleId}")
+  private String googleProjectId;
 }

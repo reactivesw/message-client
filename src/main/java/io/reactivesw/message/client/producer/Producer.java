@@ -7,11 +7,11 @@ import java.util.concurrent.Future;
 /**
  * message producer.
  */
-public interface Producer<T> {
+public interface Producer {
 
-  Future<String> send(Message<T> msg);
+  Future<String> send(Message msg);
 
-  Future<String> send(Message<T> msg, Callback callback);
+  Future<String> send(Message msg, Callback callback);
 
   void flush();
 

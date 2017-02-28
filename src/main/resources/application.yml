@@ -1,0 +1,11 @@
+server:
+  port: 8888
+
+
+io:
+  reactivesw:
+    message:
+      brokerType: google
+      google:
+        project:
+          id: googleProjectId

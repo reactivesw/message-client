@@ -17,6 +17,7 @@
 package io.reactivesw.message.client.utils.serializer;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.util.Assert;
@@ -27,11 +28,10 @@ import java.util.Map;
 /**
  * Generic Serializer for sending Java objects as JSON.
  *
- * @param <T> class of the entity, representing messages
  * @author Igor Stepanov
  * @author Artem Bilan
  */
-public class JsonSerializer<T> {
+public class JsonSerializer {
 
   protected final ObjectMapper objectMapper;
 
@@ -46,7 +46,8 @@ public class JsonSerializer<T> {
     this.objectMapper = objectMapper;
   }
 
-  public byte[] serialize(T data) {
+  public byte[] serialize(Object data) {
+
     try {
       byte[] result = null;
       if (data != null) {
@@ -57,5 +58,4 @@ public class JsonSerializer<T> {
       throw new SerializationException("Can't serialize data [" + data + "]", ex);
     }
   }
-
 }

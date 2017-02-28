@@ -31,7 +31,7 @@ bootRepackage.enabled = false
 
 dependencies {
     // spring
-    compile("org.springframework.boot:spring-boot-starter")
+    compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework:spring-messaging")
     //for zoned datetime
     compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.5')
@@ -43,12 +43,13 @@ dependencies {
 
     compile('com.google.api-client:google-api-client:1.22.0')
     compile('com.google.cloud:google-cloud-pubsub:0.9.3-alpha')
+    compile('com.google.guava:guava:21.0')
 
     //lombok
     compile('org.projectlombok:lombok:1.16.12')
 
     //spring boot test
-//    testCompile('org.springframework.boot:spring-boot-starter-test:1.4.0.RELEASE')
+    testCompile('org.springframework.boot:spring-boot-starter-test:1.4.0.RELEASE')
 
     //groovy for spock
     testCompile('org.codehaus.groovy:groovy-all:2.4.1')
