@@ -49,6 +49,6 @@ public class DefaultProducerFactory implements ProducerFactory {
     } else {
       producer = new GoogleProducer(projectId);
     }
-    return null;
+    return producer;
   }
 }

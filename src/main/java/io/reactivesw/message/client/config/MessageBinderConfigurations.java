@@ -26,7 +26,7 @@ public class MessageBinderConfigurations {
   @Value("${io.reactivesw.message.broker.type:google}")
   private String brokerType;
 
-  @Value("${io.reactivesw.message.topic}")
+  @Value("${io.reactivesw.message.topic:}")
   private String topic;
 
   @Value("${io.reactivesw.message.google.project.id:googleId}")
