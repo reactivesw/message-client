@@ -1,43 +1,49 @@
 package io.reactivesw.message.client.core;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.UUID;
 
 /**
  * Message for publish or receive.
+ * All messages in our system should be an json.
  */
+@Getter
+@Setter
 public class Message implements Serializable {
 
   /**
    * unique message id.
    */
-  public String id;
+  private String id;
 
   /**
    * sequence number used to detect the order of the message.
    */
-  public String sequenceNumber;
+  private String sequenceNumber;
 
   /**
    * message data.
    */
-  public Object payload;
+  private Serializable payload;
 
-  public static Message of(Object payload) {
+  public static Message of(Serializable payload) {
     Message msg = new Message();
     msg.id = UUID.randomUUID().toString();
     msg.payload = payload;
     return msg;
   }
 
-  public static Message of(String id, Object payload) {
+  public static Message of(String id, Serializable payload) {
     Message msg = new Message();
     msg.id = id;
     msg.payload = payload;
     return msg;
   }
 
-  public static Message of(String id, String sequenceNumber, Object payload) {
+  public static Message of(String id, String sequenceNumber, Serializable payload) {
     Message msg = new Message();
     msg.id = id;
     msg.sequenceNumber = sequenceNumber;

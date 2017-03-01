@@ -34,6 +34,9 @@ public class GoogleProducer implements Producer {
   private TopicName topicName;
 
   public GoogleProducer(String projectId) throws IOException {
+    Assert.notNull(projectId);
+
+    this.projectId = projectId;
     topicName = TopicName.create(projectId, topicNameString);
 
     publisherClient = PublisherClient.create();
@@ -42,8 +45,9 @@ public class GoogleProducer implements Producer {
   }
 
   public GoogleProducer(String projectId, String topicNameString) throws IOException {
+    Assert.notNull(projectId);
     Assert.notNull(topicNameString);
-
+    this.projectId = projectId;
     this.topicNameString = topicNameString;
     topicName = TopicName.create(projectId, topicNameString);
     publisher = Publisher.newBuilder(topicName).build();
@@ -54,7 +58,7 @@ public class GoogleProducer implements Producer {
 
     PubsubMessage pubsubMessage = PubsubMessage.newBuilder()
         .setData(ByteString.copyFrom(jsonSerializer.serialize(msg)))
-        .setMessageId(msg.id).build();
+        .setMessageId(msg.getId()).build();
 
     return publisher.publish(pubsubMessage);
   }

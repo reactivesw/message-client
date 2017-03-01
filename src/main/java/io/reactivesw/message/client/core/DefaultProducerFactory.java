@@ -37,6 +37,12 @@ public class DefaultProducerFactory implements ProducerFactory {
     return null;
   }
 
+  /**
+   * create google producer.
+   *
+   * @return Producer.
+   * @throws IOException
+   */
   private Producer createGoogleProducer() throws IOException {
     String projectId = mbConfig.getGoogleProjectId();
     Assert.notNull(projectId);

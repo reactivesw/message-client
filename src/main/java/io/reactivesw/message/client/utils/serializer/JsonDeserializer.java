@@ -65,7 +65,7 @@ public class JsonDeserializer<T> {
     this.targetType = targetType;
   }
 
-  public T deserialize(String topic, byte[] data) {
+  public T deserialize(byte[] data) {
     if (this.reader == null) {
       this.reader = this.objectMapper.readerFor(this.targetType);
     }
@@ -76,8 +76,7 @@ public class JsonDeserializer<T> {
       }
       return result;
     } catch (IOException e) {
-      throw new SerializationException("Can't deserialize data [" + Arrays.toString(data) +
-          "] from topic [" + topic + "]", e);
+      throw new SerializationException("Can't deserialize data [" + Arrays.toString(data) + "]", e);
     }
   }
 

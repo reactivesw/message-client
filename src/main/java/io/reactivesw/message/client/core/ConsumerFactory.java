@@ -5,9 +5,7 @@ import io.reactivesw.message.client.consumer.Consumer;
 /**
  * The strategy to produce a {@link Consumer} instance(s).
  */
-public class ConsumerFactory {
+public interface ConsumerFactory {
 
-  public static Consumer createConsumer() {
-    return null;
-  }
+  Consumer createConsumer() throws Exception;
 }

@@ -29,6 +29,9 @@ public class MessageBinderConfigurations {
   @Value("${io.reactivesw.message.topic:}")
   private String topic;
 
+  @Value("${io.reactivesw.message.subscription:}")
+  private String subscription;
+
   @Value("${io.reactivesw.message.google.project.id:googleId}")
   private String googleProjectId;
 }
