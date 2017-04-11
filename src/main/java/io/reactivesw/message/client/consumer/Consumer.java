@@ -6,7 +6,6 @@ import java.util.List;
 
 /**
  * Message consumer.
- * Create listener,
  */
 public interface Consumer {
 

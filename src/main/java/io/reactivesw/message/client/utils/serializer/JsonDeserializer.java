@@ -1,18 +1,3 @@
-/*
- * Copyright 2015-2016 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package io.reactivesw.message.client.utils.serializer;
 
@@ -20,12 +5,10 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
-import org.springframework.core.ResolvableType;
 import org.springframework.util.Assert;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Map;
 
 /**
  * Generic Deserializer for receiving JSON from Kafka and return Java objects.
@@ -34,37 +17,68 @@ import java.util.Map;
  */
 public class JsonDeserializer<T> {
 
-  protected final ObjectMapper objectMapper;
+  /**
+   * object mapper.
+   */
+  protected transient ObjectMapper objectMapper;
 
-  protected final Class<T> targetType;
+  /**
+   * target type.
+   */
+  protected transient Class<T> targetType;
 
-  private volatile ObjectReader reader;
+  /**
+   * object reader.
+   */
+  private transient ObjectReader reader;
 
+  /**
+   * default constructor.
+   */
   protected JsonDeserializer() {
     this((Class<T>) null);
   }
 
+  /**
+   * constructor with object mapper.
+   *
+   * @param objectMapper object mapper.
+   */
   protected JsonDeserializer(ObjectMapper objectMapper) {
     this(null, objectMapper);
   }
 
+  /**
+   * constructor with target type.
+   *
+   * @param targetType type
+   */
   public JsonDeserializer(Class<T> targetType) {
     this(targetType, new ObjectMapper());
     this.objectMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, false);
     this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
   }
 
-  @SuppressWarnings("unchecked")
+  /**
+   * constructor with target type and object mapper.
+   *
+   * @param targetType   type
+   * @param objectMapper mapper
+   */
   public JsonDeserializer(Class<T> targetType, ObjectMapper objectMapper) {
     Assert.notNull(objectMapper, "'objectMapper' must not be null.");
-    this.objectMapper = objectMapper;
-    if (targetType == null) {
-      targetType = (Class<T>) ResolvableType.forClass(getClass()).getSuperType().resolveGeneric(0);
-    }
     Assert.notNull(targetType, "'targetType' cannot be resolved.");
+
+    this.objectMapper = objectMapper;
     this.targetType = targetType;
   }
 
+  /**
+   * deserialize data
+   *
+   * @param data byte[]
+   * @return Object
+   */
   public T deserialize(byte[] data) {
     if (this.reader == null) {
       this.reader = this.objectMapper.readerFor(this.targetType);

@@ -1,14 +1,16 @@
 package io.reactivesw.message.client.google;
 
 import com.google.cloud.pubsub.spi.v1.Publisher;
-import com.google.cloud.pubsub.spi.v1.PublisherClient;
 import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.TopicName;
 import io.reactivesw.message.client.core.Message;
 import io.reactivesw.message.client.producer.Callback;
 import io.reactivesw.message.client.producer.Producer;
+import io.reactivesw.message.client.producer.ProducerCreateException;
 import io.reactivesw.message.client.utils.serializer.JsonSerializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 import java.io.IOException;
@@ -20,41 +22,51 @@ import java.util.concurrent.Future;
 public class GoogleProducer implements Producer {
 
   /**
+   * log.
+   */
+  private static final Logger LOG = LoggerFactory.getLogger(GoogleProducer.class);
+
+  /**
    * google publisher.
    */
-  Publisher publisher;
+  private transient Publisher publisher;
 
-  PublisherClient publisherClient;
+  /**
+   * json serializer.
+   */
+  private transient JsonSerializer jsonSerializer = new JsonSerializer();
 
-  JsonSerializer jsonSerializer = new JsonSerializer();
-
-  private String projectId = "google-project-id";
-  private String topicNameString = "reactivesw-bus";
-
-  private TopicName topicName;
-
-  public GoogleProducer(String projectId) throws IOException {
-    Assert.notNull(projectId);
-
-    this.projectId = projectId;
-    topicName = TopicName.create(projectId, topicNameString);
-
-    publisherClient = PublisherClient.create();
-
-    publisher = Publisher.newBuilder(topicName).build();
-  }
-
+  /**
+   * constructor with project id, and topic name.
+   *
+   * @param projectId       String project name on google pub/sub
+   * @param topicNameString topic name of the project
+   * @throws IOException Throw IO exception when build publisher
+   */
   public GoogleProducer(String projectId, String topicNameString) throws IOException {
-    Assert.notNull(projectId);
-    Assert.notNull(topicNameString);
-    this.projectId = projectId;
-    this.topicNameString = topicNameString;
-    topicName = TopicName.create(projectId, topicNameString);
-    publisher = Publisher.newBuilder(topicName).build();
+    Assert.notNull(projectId, "Google Pub/Sub project Id is null.");
+    Assert.notNull(topicNameString, " Google Pub/Sub topic name is null.");
+    LOG.debug("projectId: {}, topicName: {}.", projectId, topicNameString);
+
+    TopicName topicName = TopicName.create(projectId, topicNameString);
+
+    try {
+      publisher = Publisher.newBuilder(topicName).build();
+    } catch (IOException ex) {
+      LOG.debug("create google producer failed. projectId: {}, topicName: {}.", projectId,
+          topicNameString, ex);
+      throw new ProducerCreateException("Create google producer failed.");
+    }
   }
 
+  /**
+   * publish a message to the pub/sub.
+   *
+   * @param msg the detail message.
+   * @return future.The message Id wrapped in the future.
+   */
   @Override
-  public Future<String> send(Message msg) {
+  public Future<String> publish(Message msg) {
 
     PubsubMessage pubsubMessage = PubsubMessage.newBuilder()
         .setData(ByteString.copyFrom(jsonSerializer.serialize(msg)))
@@ -63,15 +75,30 @@ public class GoogleProducer implements Producer {
     return publisher.publish(pubsubMessage);
   }
 
+  /**
+   * add callback when publish message.
+   *
+   * @param msg      message
+   * @param callback callback
+   */
   @Override
-  public Future<String> send(Message msg, Callback callback) {
-    return null;
+  public void publish(Message msg, Callback callback) {
+    //do nothing.
   }
 
+  /**
+   * flush.
+   */
   @Override
   public void flush() {
+    // flush.
   }
 
+  /**
+   * close.
+   *
+   * @throws Exception
+   */
   @Override
   public void close() throws Exception {
     publisher.shutdown();

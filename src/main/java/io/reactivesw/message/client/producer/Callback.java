@@ -17,10 +17,19 @@
 package io.reactivesw.message.client.producer;
 
 /**
- * A callback interface that the user can implement to allow code to execute when the request is complete.
- * This callback will generally execute in the background I/O thread so it should be fast.
+ * call back for producer.
  */
-public interface Callback {
+public interface Callback<V> {
 
-    void onCompletion(Object metadata, Exception exception);
+    /**
+     * call back when failed.
+     * @param th throwable.
+     */
+    void onFailure(Throwable th);
+
+    /**
+     * call back when success.
+     * @param result result.
+     */
+    void onSuccess(V result);
 }

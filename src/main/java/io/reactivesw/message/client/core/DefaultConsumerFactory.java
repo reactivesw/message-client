@@ -1,40 +1,30 @@
 package io.reactivesw.message.client.core;
 
-import io.reactivesw.message.client.config.MessageBinderConfigurations;
 import io.reactivesw.message.client.consumer.Consumer;
+import io.reactivesw.message.client.consumer.ConsumerCreateException;
 import io.reactivesw.message.client.google.GoogleConsumer;
-
-import java.io.IOException;
 
 /**
  * Default consumer factory.
  */
-public class DefaultConsumerFactory implements ConsumerFactory {
+public final class DefaultConsumerFactory {
 
   /**
-   * message binder configs for broker.
+   * default constructor.
    */
-  MessageBinderConfigurations mbConfig;
-
-  public DefaultConsumerFactory(MessageBinderConfigurations mbConfig) {
-    this.mbConfig = mbConfig;
+  private DefaultConsumerFactory() {
   }
 
-  @Override
-  public Consumer createConsumer() throws Exception {
-    String brokerType = this.mbConfig.getBrokerType();
-    switch (brokerType) {
-      case "google":
-        return createGoogleConsumer();
-      default:
-        return null;
-    }
-  }
-
-  public Consumer createGoogleConsumer() throws IOException {
-    String projectId = mbConfig.getGoogleProjectId();
-    String subscriptionString = mbConfig.getSubscription();
-
-    return new GoogleConsumer(projectId, subscriptionString);
+  /**
+   * create google pub/sub consumer.
+   *
+   * @param projectId      String
+   * @param subscriptionId string
+   * @return consumer
+   * @throws ConsumerCreateException exception
+   */
+  public static Consumer createGoogleConsumer(String projectId, String subscriptionId) throws
+      ConsumerCreateException {
+    return new GoogleConsumer(projectId, subscriptionId);
   }
 }

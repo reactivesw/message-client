@@ -11,27 +11,34 @@ import org.springframework.context.annotation.Configuration;
 @Data
 public class MessageBinderConfigurations {
 
-  @Value("${io.reactivesw.message.broker.host:localhost}")
+  /**
+   * broker host.
+   */
+  @Value("${io.reactivesw.message.broker.host}")
   private String broker;
 
+  /**
+   * broker port.
+   */
   @Value("${io.reactivesw.message.broker.port: 9999}")
   private String port;
 
+  /**
+   *
+   */
   @Value("${io.reactivesw.message.broker.user:reactivesw}")
   private String user;
 
+  /**
+   * password.
+   */
   @Value("${io.reactivesw.message.broker.password: password}")
   private String password;
 
+  /**
+   * broker type.
+   */
   @Value("${io.reactivesw.message.broker.type:google}")
   private String brokerType;
 
-  @Value("${io.reactivesw.message.topic:}")
-  private String topic;
-
-  @Value("${io.reactivesw.message.subscription:}")
-  private String subscription;
-
-  @Value("${io.reactivesw.message.google.project.id:googleId}")
-  private String googleProjectId;
 }

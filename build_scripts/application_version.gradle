@@ -1,0 +1,4 @@
+jar {
+    baseName = 'message-client'
+    version = '0.0.1'
+}

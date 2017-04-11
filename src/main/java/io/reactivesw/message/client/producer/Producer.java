@@ -9,11 +9,31 @@ import java.util.concurrent.Future;
  */
 public interface Producer {
 
-  Future<String> send(Message msg);
+  /**
+   * publish.
+   *
+   * @param msg message
+   * @return future
+   */
+  Future<String> publish(Message msg);
 
-  Future<String> send(Message msg, Callback callback);
+  /**
+   * publish.
+   *
+   * @param msg      message
+   * @param callback callback
+   */
+  void publish(Message msg, Callback callback);
 
+  /**
+   * flush.
+   */
   void flush();
 
+  /**
+   * close.
+   *
+   * @throws Exception exception
+   */
   void close() throws Exception;
 }
