@@ -74,7 +74,7 @@ public class JsonDeserializer<T> {
   }
 
   /**
-   * deserialize data
+   * deserialize data.
    *
    * @param data byte[]
    * @return Object
@@ -93,5 +93,4 @@ public class JsonDeserializer<T> {
       throw new SerializationException("Can't deserialize data [" + Arrays.toString(data) + "]", e);
     }
   }
-
 }

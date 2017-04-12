@@ -47,7 +47,7 @@ public class Message implements Serializable {
   /**
    * message data.
    */
-  private Serializable payload;
+  private Object payload;
 
   /**
    * message build with payload.
@@ -56,7 +56,7 @@ public class Message implements Serializable {
    * @param payload serializable payload
    * @return Message
    */
-  public static Message build(Serializable payload) {
+  public static Message build(Object payload) {
     Message msg = new Message();
     msg.id = UUID.randomUUID().toString();
     msg.payload = payload;
@@ -71,7 +71,7 @@ public class Message implements Serializable {
    * @param payload payload.
    * @return Message
    */
-  public static Message build(String id, Serializable payload) {
+  public static Message build(String id, Object payload) {
     Message msg = new Message();
     msg.id = id;
     msg.payload = payload;
@@ -87,7 +87,7 @@ public class Message implements Serializable {
    * @param sequenceNumber String
    * @return Message
    */
-  public static Message build(String id, String sequenceNumber, Serializable payload) {
+  public static Message build(String id, String sequenceNumber, Object payload) {
     Message msg = new Message();
     msg.id = id;
     msg.sequenceNumber = sequenceNumber;
@@ -105,7 +105,7 @@ public class Message implements Serializable {
    * @param createTime     long
    * @return Message
    */
-  public static Message build(String id, String sequenceNumber, long createTime, Serializable
+  public static Message build(String id, String sequenceNumber, long createTime, Object
       payload) {
     Message msg = new Message();
     msg.id = id;
@@ -126,8 +126,7 @@ public class Message implements Serializable {
    * @return Message
    */
   public static Message build(String id, String sequenceNumber, long createTime, long version,
-                              Serializable
-                                  payload) {
+                              Object payload) {
     Message msg = new Message();
     msg.id = id;
     msg.sequenceNumber = sequenceNumber;
@@ -147,7 +146,7 @@ public class Message implements Serializable {
    * @return Message
    */
   public static Message build(String id, String sequenceNumber, long createTime, long version,
-                              long expire, Serializable payload) {
+                              long expire, Object payload) {
     Message msg = new Message();
     msg.id = id;
     msg.sequenceNumber = sequenceNumber;
@@ -271,7 +270,7 @@ public class Message implements Serializable {
    *
    * @return set payload.
    */
-  public Serializable getPayload() {
+  public Object getPayload() {
     return payload;
   }
 
@@ -280,7 +279,7 @@ public class Message implements Serializable {
    *
    * @param payload Serializable
    */
-  public void setPayload(Serializable payload) {
+  public void setPayload(Object payload) {
     this.payload = payload;
   }
 }
