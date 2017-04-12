@@ -22,8 +22,7 @@ public final class DefaultProducerFactory {
    * @return Producer.
    * @throws IOException exception
    */
-  public static Producer createGoogleProducer(String projectId, String topicName) throws
-      IOException {
+  public static Producer createGoogleProducer(String projectId, String topicName) {
     return new GoogleProducer(projectId, topicName);
   }
 }

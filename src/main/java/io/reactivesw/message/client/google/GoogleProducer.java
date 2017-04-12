@@ -43,7 +43,7 @@ public class GoogleProducer implements Producer {
    * @param topicNameString topic name of the project
    * @throws IOException Throw IO exception when build publisher
    */
-  public GoogleProducer(String projectId, String topicNameString) throws IOException {
+  public GoogleProducer(String projectId, String topicNameString) throws ProducerCreateException {
     Assert.notNull(projectId, "Google Pub/Sub project Id is null.");
     Assert.notNull(topicNameString, " Google Pub/Sub topic name is null.");
     LOG.debug("projectId: {}, topicName: {}.", projectId, topicNameString);
