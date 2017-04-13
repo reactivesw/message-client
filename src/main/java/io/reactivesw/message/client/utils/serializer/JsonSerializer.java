@@ -43,13 +43,13 @@ public class JsonSerializer {
    * serialize.
    *
    * @param data object
-   * @return byte[]
+   * @return Json string
    */
-  public byte[] serialize(Object data) {
+  public String serialize(Object data) {
     try {
-      byte[] result = null;
+      String result = null;
       if (data != null) {
-        result = this.objectMapper.writeValueAsBytes(data);
+        result = this.objectMapper.writeValueAsString(data);
       }
       return result;
     } catch (IOException ex) {

@@ -69,7 +69,7 @@ public class GoogleProducer implements Producer {
   public Future<String> publish(Message msg) {
 
     PubsubMessage pubsubMessage = PubsubMessage.newBuilder()
-        .setData(ByteString.copyFrom(jsonSerializer.serialize(msg)))
+        .setData(ByteString.copyFromUtf8(jsonSerializer.serialize(msg)))
         .setMessageId(msg.getId()).build();
 
     return publisher.publish(pubsubMessage);

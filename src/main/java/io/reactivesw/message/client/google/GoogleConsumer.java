@@ -95,7 +95,7 @@ public class GoogleConsumer implements Consumer {
     return messages.stream().map(
         receivedMessage -> {
           ByteString data = receivedMessage.getMessage().getData();
-          Message message = jsonDeserializer.deserialize(data.toByteArray());
+          Message message = jsonDeserializer.deserialize(data.toString());
           message.setExternalId(receivedMessage.getAckId());
           return message;
         }
@@ -119,7 +119,7 @@ public class GoogleConsumer implements Consumer {
     return messages.stream().map(
         receivedMessage -> {
           ByteString data = receivedMessage.getMessage().getData();
-          Message message = jsonDeserializer.deserialize(data.toByteArray());
+          Message message = jsonDeserializer.deserialize(data.toString());
           message.setExternalId(receivedMessage.getAckId());
           return message;
         }

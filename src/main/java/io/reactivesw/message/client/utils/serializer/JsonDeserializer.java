@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import org.springframework.util.Assert;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * Generic Deserializer for receiving JSON from Kafka and return Java objects.
@@ -76,10 +75,10 @@ public class JsonDeserializer<T> {
   /**
    * deserialize data.
    *
-   * @param data byte[]
+   * @param data json String
    * @return Object
    */
-  public T deserialize(byte[] data) {
+  public T deserialize(String data) {
     if (this.reader == null) {
       this.reader = this.objectMapper.readerFor(this.targetType);
     }
@@ -90,7 +89,7 @@ public class JsonDeserializer<T> {
       }
       return result;
     } catch (IOException e) {
-      throw new SerializationException("Can't deserialize data [" + Arrays.toString(data) + "]", e);
+      throw new SerializationException("Can't deserialize data [" + data + "]", e);
     }
   }
 }
