@@ -95,7 +95,7 @@ public class GoogleConsumer implements Consumer {
     return messages.stream().map(
         receivedMessage -> {
           ByteString data = receivedMessage.getMessage().getData();
-          Message message = jsonDeserializer.deserialize(data.toString());
+          Message message = jsonDeserializer.deserialize(data.toStringUtf8());
           message.setExternalId(receivedMessage.getAckId());
           return message;
         }
