@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -100,6 +101,15 @@ public class GoogleConsumer implements Consumer {
           return message;
         }
     ).collect(Collectors.toList());
+  }
+
+  /**
+   * acknowledge message..
+   * @param messageId String
+   */
+  @Override
+  public void acknowledgeMessage(String messageId) {
+    client.acknowledge(subscriptionName, Collections.singletonList(messageId));
   }
 
   /**

@@ -27,6 +27,12 @@ public interface Consumer {
   List<Message> pullMessages(int maxMessages);
 
   /**
+   * ack message.
+   * @param messageId String
+   */
+  void acknowledgeMessage(String messageId);
+
+  /**
    * pull messages.
    *
    * @return a list of message.
