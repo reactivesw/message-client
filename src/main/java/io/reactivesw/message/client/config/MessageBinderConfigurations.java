@@ -14,7 +14,7 @@ public class MessageBinderConfigurations {
   /**
    * broker host.
    */
-  @Value("${io.reactivesw.message.broker.host}")
+  @Value("${io.reactivesw.message.broker.host:localhost}")
   private String broker;
 
   /**
