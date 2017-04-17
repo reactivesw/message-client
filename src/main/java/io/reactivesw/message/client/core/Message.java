@@ -47,110 +47,110 @@ public class Message implements Serializable {
   /**
    * message data.
    */
-  private Object payload;
+  private Object data;
 
   /**
-   * message build with payload.
+   * message build with data.
    * uuid will be generated with UUID.
    *
-   * @param payload serializable payload
+   * @param data serializable data
    * @return Message
    */
-  public static Message build(Object payload) {
+  public static Message build(Object data) {
     Message msg = new Message();
     msg.id = UUID.randomUUID().toString();
-    msg.payload = payload;
+    msg.data = data;
     msg.createTime = System.currentTimeMillis();
     return msg;
   }
 
   /**
-   * message build with message id and payload.
+   * message build with message id and data.
    *
    * @param id      message id
-   * @param payload payload.
+   * @param data data.
    * @return Message
    */
-  public static Message build(String id, Object payload) {
+  public static Message build(String id, Object data) {
     Message msg = new Message();
     msg.id = id;
-    msg.payload = payload;
+    msg.data = data;
     msg.createTime = System.currentTimeMillis();
     return msg;
   }
 
   /**
-   * message build with message id and payload.
+   * message build with message id and data.
    *
    * @param id             message id
-   * @param payload        payload.
+   * @param data        data.
    * @param sequenceNumber String
    * @return Message
    */
-  public static Message build(String id, String sequenceNumber, Object payload) {
+  public static Message build(String id, String sequenceNumber, Object data) {
     Message msg = new Message();
     msg.id = id;
     msg.sequenceNumber = sequenceNumber;
-    msg.payload = payload;
+    msg.data = data;
     msg.createTime = System.currentTimeMillis();
     return msg;
   }
 
   /**
-   * message build with message id and payload.
+   * message build with message id and data.
    *
    * @param id             message id
-   * @param payload        Serializable.
+   * @param data        Serializable.
    * @param sequenceNumber String
    * @param createTime     long
    * @return Message
    */
   public static Message build(String id, String sequenceNumber, long createTime, Object
-      payload) {
+      data) {
     Message msg = new Message();
     msg.id = id;
     msg.sequenceNumber = sequenceNumber;
-    msg.payload = payload;
+    msg.data = data;
     msg.createTime = createTime;
     return msg;
   }
 
 
   /**
-   * message build with message id and payload.
+   * message build with message id and data.
    *
    * @param id             message id
-   * @param payload        Serializable.
+   * @param data        Serializable.
    * @param sequenceNumber String
    * @param createTime     long
    * @return Message
    */
   public static Message build(String id, String sequenceNumber, long createTime, long version,
-                              Object payload) {
+                              Object data) {
     Message msg = new Message();
     msg.id = id;
     msg.sequenceNumber = sequenceNumber;
-    msg.payload = payload;
+    msg.data = data;
     msg.createTime = createTime;
     msg.version = version;
     return msg;
   }
 
   /**
-   * message build with message id and payload.
+   * message build with message id and data.
    *
    * @param id             message id
-   * @param payload        Serializable.
+   * @param data        Serializable.
    * @param sequenceNumber String
    * @param createTime     long
    * @return Message
    */
   public static Message build(String id, String sequenceNumber, long createTime, long version,
-                              long expire, Object payload) {
+                              long expire, Object data) {
     Message msg = new Message();
     msg.id = id;
     msg.sequenceNumber = sequenceNumber;
-    msg.payload = payload;
+    msg.data = data;
     msg.createTime = createTime;
     msg.version = version;
     msg.expire = expire;
@@ -266,20 +266,20 @@ public class Message implements Serializable {
   }
 
   /**
-   * get payload.
+   * get data.
    *
-   * @return set payload.
+   * @return set data.
    */
-  public Object getPayload() {
-    return payload;
+  public Object getData() {
+    return data;
   }
 
   /**
-   * set payload.
+   * set data.
    *
-   * @param payload Serializable
+   * @param data Serializable
    */
-  public void setPayload(Object payload) {
-    this.payload = payload;
+  public void setData(Object data) {
+    this.data = data;
   }
 }
